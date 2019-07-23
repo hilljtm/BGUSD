@@ -17,6 +17,10 @@ df = df.drop(['Volume'], axis=1)
 # plot a lineplot using our DF
 fig, ax = plt.subplots()
 ax.plot('Date', 'Close', data=df)
+plt.xticks('Date', rotation='vertical')
+
+fig.autofmt_xdate()
+ax.fmt_xdata = mdates.DateFormatter('%m-%d')
 
 
 # x-axis
@@ -29,3 +33,6 @@ ax.grid(True)
 fig.tight_layout()
 fig.autofmt_xdate()
 plt.show()
+
+
+# %%
