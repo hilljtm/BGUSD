@@ -7,29 +7,25 @@ plt.style.use('ggplot')
 
 
 # import csv
-df = pd.read_csv('BTCUSD.csv', parse_dates=True)
+df = pd.read_csv('BTCUSD.csv')
+
+# turn date colume to type datetime, and set it as index
+df.Date = pd.to_datetime(df.Date)
+df.set_index('Date', inplace=True)
 
 # drop columns not needed
-df = df.drop(['Adj_Close'], axis=1)
 df = df.drop(['Volume'], axis=1)
+df = df.drop(['Adj_Close'], axis=1)
+df = df.drop(['Low'], axis=1)
+df = df.drop(['High'], axis=1)
+df = df.drop(['Open'], axis=1)
 
+# plot using pandas built-in method
+df.plot(figsize=(20, 10), linewidth=3, fontsize=20)
+plt.xlabel('Month', fontsize=20)
 
-# plot a lineplot using our DF
-fig, ax = plt.subplots()
-ax.plot('Date', 'Close', data=df)
-plt.xticks(df['Date'], rotation='vertical')
-
-fig.autofmt_xdate()
-ax.fmt_xdata = mdates.DateFormatter('%m-%d')
-
-
-# x-axis
-
-
-ax.set(xlabel='Date (2019)', ylabel='Price (USD)',
-       title='Bitcoin so far in 2019')
-
-ax.grid(True)
-fig.tight_layout()
-fig.autofmt_xdate()
-plt.show()
+# %%
+# identify trends in time series by taking the rolling average
+price = df[['Close']]
+price.rolling(7).mean().plot(figsize=(20, 10), linewidth=3, fontsize=20)
+plt.xlabel('Month', fontsize=20)
