@@ -7,9 +7,9 @@ plt.style.use('ggplot')
 
 
 # import csv
-df = pd.read_csv('BTCUSD.csv')
+df = pd.read_csv('BTCUSD.csv', parse_dates=True)
 
-# drop columns not needed and store in new DF
+# drop columns not needed
 df = df.drop(['Adj_Close'], axis=1)
 df = df.drop(['Volume'], axis=1)
 
@@ -17,7 +17,7 @@ df = df.drop(['Volume'], axis=1)
 # plot a lineplot using our DF
 fig, ax = plt.subplots()
 ax.plot('Date', 'Close', data=df)
-plt.xticks('Date', rotation='vertical')
+plt.xticks(df['Date'], rotation='vertical')
 
 fig.autofmt_xdate()
 ax.fmt_xdata = mdates.DateFormatter('%m-%d')
@@ -33,6 +33,3 @@ ax.grid(True)
 fig.tight_layout()
 fig.autofmt_xdate()
 plt.show()
-
-
-# %%
