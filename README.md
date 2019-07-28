@@ -1,3 +1,6 @@
+<img src="images/usdplot.png">
+&nbsp
+
 #
 More correlations, this time with $USD 
 
